@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <title>Thông tin cá nhân</title>
+    <link rel="stylesheet" href="profile.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h2>Thông tin cá nhân</h2>
+
+        <label for="fullname">Họ và tên</label>
+        <input id="fullname" type="text" />
+
+        <label for="age">Tuổi</label>
+        <input id="age" type="number" min="1" />
+
+        <label for="username">Tên đăng nhập</label>
+        <input id="username" type="text" disabled />
+
+        <label for="password">Mật khẩu</label>
+        <input id="password" type="password" />
+
+        <label for="confirmPassword">Nhắc lại mật khẩu</label>
+        <input id="confirmPassword" type="password" />
+
+        <!-- Checkbox hiển thị mật khẩu -->
+        <div class="checkbox-container">
+          <input type="checkbox" id="showPw" onclick="togglePassword()" />
+          <label for="showPw">Hiển thị mật khẩu</label>
+        </div>
+
+        <button onclick="updateUser()">Cập nhật</button>
+        <p id="msg"></p>
+        <a href="index.html" class="back-btn">⬅ Quay lại</a>
+      </div>
+    </div>
+
+    <script>
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (!user) {
+        window.location.href = "landing.html";
+      }
+
+      document.getElementById("fullname").value = user.fullname;
+      document.getElementById("age").value = user.age;
+      document.getElementById("username").value = user.username;
+
+      function togglePassword() {
+        const pw = document.getElementById("password");
+        const cpw = document.getElementById("confirmPassword");
+        const type = pw.type === "password" ? "text" : "password";
+        pw.type = type;
+        cpw.type = type;
+      }
+
+      async function updateUser() {
+        const fullname = document.getElementById("fullname").value.trim();
+        const age = parseInt(document.getElementById("age").value);
+        const password = document.getElementById("password").value.trim();
+        const confirmPassword = document
+          .getElementById("confirmPassword")
+          .value.trim();
+        const msg = document.getElementById("msg");
+
+        if (!fullname || !age || !password || !confirmPassword) {
+          msg.innerText = "⚠️ Vui lòng nhập đầy đủ thông tin!";
+          msg.style.color = "red";
+          return;
+        }
+
+        if (password !== confirmPassword) {
+          msg.innerText = "⚠️ Mật khẩu nhập lại không khớp!";
+          msg.style.color = "red";
+          return;
+        }
+
+        const res = await fetch(`/api/updateUser/${user.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ fullname, age, password }),
+        });
+
+        const data = await res.json();
+        msg.innerText = data.message;
+
+        if (res.ok) {
+          msg.style.color = "green";
+          user.fullname = fullname;
+          user.age = age;
+          user.password = password;
+          localStorage.setItem("user", JSON.stringify(user));
+        } else {
+          msg.style.color = "red";
+        }
+      }
+    </script>
+  </body>
+</html>

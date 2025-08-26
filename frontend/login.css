@@ -1,0 +1,100 @@
+/* Reset mặc định */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #74ebd5, #acb6e5);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.card {
+  background: #fff;
+  padding: 30px 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  transition: transform 0.2s ease;
+  width: 460px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h2 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.card input {
+  width: 100%;
+  padding: 12px 14px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.card input:focus {
+  border: 1px solid #4a90e2;
+}
+
+.card button {
+  width: 40%;
+  padding: 12px;
+  margin-top: 15px;
+  background: #4a90e2;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.card button:hover {
+  background: #357abd;
+}
+
+#msg {
+  margin-top: 15px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Checkbox hiển thị mật khẩu */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 15px;
+}
+
+.checkbox-container input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.checkbox-container label {
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}

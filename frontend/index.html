@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <title>Trang chủ</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <!-- Xin chào + logout -->
+        <div class="user-menu">
+          <p id="welcome"></p>
+          <button class="logout-btn" onclick="logout()">Đăng xuất</button>
+          <button class="info-btn" onclick="goProfile()">
+            Thông tin cá nhân
+          </button>
+        </div>
+
+        <h2>Chào mừng bạn đến Trang chủ</h2>
+
+        <div class="gallery">
+          <div class="img-box">
+            <img src="/image/khai.png" alt="Ảnh Nguyễn Tấn Khải" />
+            <div class="overlay">Nguyễn Tấn Khải</div>
+          </div>
+          <div class="img-box">
+            <img src="/image/ngan.jpg" alt="Ảnh Nguyễn Đặng Kim Ngân" />
+            <div class="overlay">Nguyễn Đặng Kim Ngân</div>
+          </div>
+          <div class="img-box">
+            <img src="/image/dat.jpg" alt="Ảnh Phạm Đức Đạt" />
+            <div class="overlay">Phạm Đức Đạt</div>
+          </div>
+          <div class="img-box">
+            <img src="/image/anh.jpg" alt="Ảnh Nguyễn Hoàng Nam Anh" />
+            <div class="overlay">Nguyễn Hoàng Nam Anh</div>
+          </div>
+        </div>
+
+        <a href="/gioithieu.html" class="btn">Xem chi tiết</a>
+      </div>
+    </div>
+
+    <script>
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (!user) {
+        window.location.href = "landing.html";
+      } else {
+        document.getElementById("welcome").innerText = `Xin chào, ${
+          user.fullname || user.username
+        } 👋`;
+      }
+
+      function logout() {
+        localStorage.removeItem("user");
+        window.location.href = "landing.html";
+      }
+      function goProfile() {
+        window.location.href = "profile.html";
+      }
+    </script>
+  </body>
+</html>
