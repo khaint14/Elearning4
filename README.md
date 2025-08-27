@@ -11,3 +11,5 @@ node -v
 npm -v
 
 Cài Đặt
+npm init -y
+npm install express body-parser sqlite3
